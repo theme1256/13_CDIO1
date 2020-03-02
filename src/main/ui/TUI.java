@@ -19,6 +19,13 @@ public class TUI implements UI {
         this.out(inp + "-".repeat(60));
     }
 
+    public static void main(String[] args) {
+        TUI tui = new TUI();
+
+        tui.start();
+
+    }
+
     @Override
     public void start() {
         this.out("Velkommen", CC.GREEN);

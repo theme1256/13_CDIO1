@@ -1,6 +1,7 @@
 package dal;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QPDecoderStream;
+
+import dto.PasswordGen;
 import dto.UserDTO;
 
 import java.io.*;
@@ -18,6 +19,10 @@ public class UserDAO implements IUserDAO {
 
         try {
             userStore.loadUsers();
+        } catch ( DALException e){
+            System.out.println("Fejl");
+        }try {
+            hej.createUser();
         } catch ( DALException e){
             System.out.println("Fejl");
         }
@@ -41,6 +46,7 @@ public class UserDAO implements IUserDAO {
 
         UserDTO user = new UserDTO();
         UserStore userStore = new UserStore();
+        PasswordGen psgen = new PasswordGen();
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Indstast ID");
@@ -52,8 +58,8 @@ public class UserDAO implements IUserDAO {
         System.out.println("Indstast Initialer");
         String ini = scan.next();
         System.out.println("Indstast Password");
-        String password = scan.next();
-
+        String password = psgen.passwordGen(psgen.lowerCase+psgen.upperCase+psgen.cifre+psgen.symbols);
+        System.out.println("Dit password er: "+ password);
         user.setUserId(id);
         user.setUserName(username);
         user.addRole(role);

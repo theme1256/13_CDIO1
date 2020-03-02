@@ -6,14 +6,14 @@ public class PasswordGen {
 
     static Random random = new Random();
 
-    static final String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    static final String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-    static final String cifre = "0123456789";
-    static final String symbols = ".-_+!?=";
-    static int min = 6;
-    static int max = 51;
+    public final String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public final String lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    public final String cifre = "0123456789";
+    public final String symbols = ".-_+!?=";
+    public int min = 6;
+    public int max = 51;
 
-    public static String passwordGen(String character) {
+    public String passwordGen(String character) {
         String output = "";
         int j =random.nextInt(max-min)+min;
         System.out.println(j);
@@ -24,9 +24,5 @@ public class PasswordGen {
         return output;
     }
 
-    public static void main(String[] args) {
-        String password = passwordGen( lowerCase+upperCase+cifre+symbols );
-        System.out.println(password);
-    }
 }
 
