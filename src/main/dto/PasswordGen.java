@@ -24,5 +24,35 @@ public class PasswordGen {
         return output;
     }
 
+
+    public static boolean isPasswordSafe(String username, String password){
+
+        boolean safeCaps = false;
+        boolean safeSpecial = false;
+        boolean safeNumber = false;
+        boolean safeName = false;
+
+        for (int i = 0; i< password.length(); i++){
+
+            if(password.charAt(i) <91 && password.charAt(i) >64){
+                safeCaps = true;
+            }
+            if((password.charAt(i) <48 && password.charAt(i) >32) || (password.charAt(i) <65 && password.charAt(i) >57) ||(password.charAt(i) <127 && password.charAt(i) >122) ){
+                safeSpecial = true;
+            }
+            if(password.charAt(i) <58 && password.charAt(i) >47){
+                safeNumber = true;
+            }
+            if(!password.contains(username)){
+                safeName = true;
+            }
+
+        }
+        return safeCaps&&safeSpecial&&safeNumber&&safeName;
+    }
+
+}
+
+
 }
 
