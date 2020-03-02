@@ -1,6 +1,9 @@
 package ui;
 
+import dal.IUserDAO;
+import dto.UserDTO;
 import funk.IUserFunk;
+import funk.UserFunk;
 
 import java.util.Scanner;
 
@@ -10,6 +13,7 @@ public class TUI implements UI {
 
     public TUI() {
         this.input = new Scanner(System.in);
+        this.funk = new UserFunk();
     }
 
     private void out(String msg) {
@@ -19,7 +23,7 @@ public class TUI implements UI {
         this.out(color + msg);
     }
     private void line(String inp) {
-        this.out(inp + "-".repeat(60));
+        this.out("-".repeat(60), inp);
     }
 
     @Override
@@ -61,12 +65,39 @@ public class TUI implements UI {
 
     @Override
     public void createUser() {
+        this.line(CC.GREEN);
+        this.out("Opret en ny bruger", CC.GREEN);
+        this.out("Hvad er brugerens ID? (11-99)");
+        int id = this.input.nextInt();
+        this.input.next();
+        this.out("Hvad er brugerens username? (2-20 tegn)");
+        String username = this.input.next();
+        this.out("Hvad er brugerens initialer? (2-4 tegn)");
+        String ini = this.input.next();
+        this.out("Hvad er brugerens CPR-nummer?");
+        String cpr = this.input.next();
+        try {
+            UserDTO user = this.funk.createUser(id, username, ini, cpr);
 
+            this.out("Tildeling af roller", CC.GREEN);
+            for (String test : new String[]{"Admin", "Pharmacist", "Foreman", "Operator"}) {
+                this.out("Skal brugeren være " + test.toLowerCase() + "? [y/N]");
+                if (this.input.next().toLowerCase().contains("y")) {
+                    this.funk.addRole(user, test);
+                }
+            }
+
+            this.funk.storeUser(user);
+        } catch (UserDTO.DTOException | IUserDAO.DALException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void listUsers() {
-
+        this.funk.listUsers().forEach((user) -> {
+            this.out(user.toString());
+        });
     }
 
     @Override

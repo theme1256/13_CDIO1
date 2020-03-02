@@ -1,18 +1,35 @@
 package funk;
 
+import dal.IUserDAO;
 import dto.UserDTO;
 
 import java.util.ArrayList;
 
 public class UserFunk implements IUserFunk {
-    @Override
-    public void createUser(int userID, String userName, String ini, String cpr) {
+    private IUserDAO store;
 
+    public UserFunk() {
+        //
     }
 
     @Override
-    public void addRole(int userID, String role) {
+    public UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException {
+        UserDTO user = new UserDTO();
+        user.setUserId(userID);
+        user.setUserName(userName);
+        user.setIni(ini);
+        user.setCpr(cpr);
+        return user;
+    }
 
+    @Override
+    public void addRole(UserDTO user, String role) throws UserDTO.DTOException {
+        user.addRole(role);
+    }
+
+    @Override
+    public void storeUser(UserDTO user) throws IUserDAO.DALException {
+        this.store.createUser(user);
     }
 
     @Override
