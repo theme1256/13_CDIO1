@@ -1,9 +1,12 @@
 package ui;
 
+import funk.IUserFunk;
+
 import java.util.Scanner;
 
 public class TUI implements UI {
     private Scanner input;
+    private IUserFunk funk;
 
     public TUI() {
         this.input = new Scanner(System.in);
@@ -62,12 +65,12 @@ public class TUI implements UI {
     }
 
     @Override
-    public void updateUser() {
+    public void listUsers() {
 
     }
 
     @Override
-    public void listUsers() {
+    public void updateUser() {
 
     }
 
