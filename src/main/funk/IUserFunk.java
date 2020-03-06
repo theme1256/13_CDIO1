@@ -9,7 +9,7 @@ public interface IUserFunk {
     UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException;
     void addRole(UserDTO user, String role) throws UserDTO.DTOException;
     void storeUser(UserDTO user) throws IUserDAO.DALException;
-    ArrayList<UserDTO> listUsers();
+    ArrayList<UserDTO> getUsers();
     UserDTO getUser(int userID);
     void updateUser(int oldID, int userID, String userName, String ini, String cpr);
     void deleteUser(int userID);

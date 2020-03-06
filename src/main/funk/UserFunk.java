@@ -12,6 +12,7 @@ public class UserFunk implements IUserFunk {
         //
     }
 
+
     @Override
     public UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException {
         UserDTO user = new UserDTO();
@@ -33,7 +34,7 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public ArrayList<UserDTO> listUsers() {
+    public ArrayList<UserDTO> getUsers() {
         return null;
     }
 

@@ -1,4 +1,4 @@
-package dto;
+package funk;
 
 import java.util.Random;
 
