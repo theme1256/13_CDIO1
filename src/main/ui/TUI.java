@@ -3,6 +3,7 @@ package ui;
 import dal.IUserDAO;
 import dto.UserDTO;
 import funk.IUserFunk;
+import funk.PasswordController;
 import funk.UserFunk;
 
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class TUI implements UI {
     private Scanner input;
     private IUserFunk funk;
+
 
     public TUI() {
         this.input = new Scanner(System.in);
@@ -76,24 +78,25 @@ public class TUI implements UI {
         this.out("Opret en ny bruger", CC.GREEN);
         this.out("Hvad er brugerens ID? (11-99)");
         int id = this.input.nextInt();
-        this.input.next();
+        this.input.nextLine();
         this.out("Hvad er brugerens username? (2-20 tegn)");
-        String username = this.input.next();
+        String username = this.input.nextLine();
         this.out("Hvad er brugerens initialer? (2-4 tegn)");
-        String ini = this.input.next();
+        String ini = this.input.nextLine();
         this.out("Hvad er brugerens CPR-nummer?");
-        String cpr = this.input.next();
+        String cpr = this.input.nextLine();
         try {
             UserDTO user = this.funk.createUser(id, username, ini, cpr);
 
             this.out("Tildeling af roller", CC.GREEN);
             for (String test : new String[]{"Admin", "Pharmacist", "Foreman", "Operator"}) {
                 this.out("Skal brugeren være " + test.toLowerCase() + "? [y/N]");
-                if (this.input.next().toLowerCase().contains("y")) {
+                if (this.input.nextLine().toLowerCase().contains("y")) {
                     this.funk.addRole(user, test);
                 }
             }
-
+            System.out.print("Password tildelt til " + user.getUserName() + " |ID: " + user.getUserId() + "| er: ");
+            this.out(user.getPassword(), CC.PURPLE_BOLD_BRIGHT);
             this.funk.storeUser(user);
         } catch (UserDTO.DTOException | IUserDAO.DALException e) {
             e.printStackTrace();
@@ -102,9 +105,14 @@ public class TUI implements UI {
 
     @Override
     public void listUsers() {
-        this.funk.listUsers().forEach((user) -> {
-            this.out(user.toString());
-        });
+        try {
+            this.funk.getUsers().forEach((user) -> {
+                this.out(user.toString());
+            });
+
+        } catch (IUserDAO.DALException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -114,6 +122,27 @@ public class TUI implements UI {
 
     @Override
     public void deleteUser() {
+        this.out("---FJERN BRUGER---", CC.CYAN_BRIGHT);
+        this.out("Indstast Bruger UD");
+
+        int id = this.input.nextInt();
+        this.input.nextLine();
+
+       try {
+           UserDTO user = funk.getUser(id);
+           System.out.println(user.toString());
+
+           this.out("Er du sikker på du vil fjerne " + user.getUserName() + "ID: " + user.getUserId() + " fra databasen? + [y/N]", CC.RED);
+
+           if (this.input.nextLine().toLowerCase().contains("y")) {
+               this.out("Bruger: " + user.getUserName() + " ID: " + user.getUserId() + " er succesfuldt blevet fjernet fra databasen");
+               this.funk.deleteUser(id);
+           }
+
+       } catch (IUserDAO.DALException e){
+
+           this.out("Denne bruger eksisterer ikke");
+       }
 
     }
 
