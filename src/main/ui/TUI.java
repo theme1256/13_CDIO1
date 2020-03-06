@@ -102,13 +102,46 @@ public class TUI implements UI {
 
     @Override
     public void listUsers() {
-        this.funk.listUsers().forEach((user) -> {
+        this.funk.getUsers().forEach((user) -> {
             this.out(user.toString());
         });
     }
 
     @Override
     public void updateUser() {
+        this.line(CC.GREEN);
+        this.out("Opdater brugeren", CC.GREEN);
+        this.out("Hvad er brugerens ID?");
+        int oldID = this.input.nextInt();
+        this.input.nextLine();
+        this.out("Opdater brugerens ID (11-99)");
+        int userID = this.input.nextInt();
+        this.input.nextLine();
+        this.out("Opdater brugerens username (2-20 tegn)");
+        String username = this.input.next();
+        this.out("Opdater brugerens initialer");
+        String ini = this.input.next();
+        this.out("Opdater brugerens CPR-nummer");
+        String cpr = this.input.next();
+        try {
+            UserDTO user = this.funk.updateUser(oldID, userID, username, ini, cpr);
+
+            this.out("Tildeling af roller", CC.GREEN);
+            for (String test : new String[]{"Admin", "Pharmacist", "Foreman", "Operator"}) {
+                this.out("Skal brugeren være" + test.toLowerCase() + "? [y/N]");
+                if (this.input.next().toLowerCase().contains("y")) {
+                    this.funk.addRole(user, test);
+                }
+                this.funk.storeUser(user);
+            }
+        }
+        catch (UserDTO.DTOException | IUserDAO.DALException e){
+            e.printStackTrace();
+        }
+
+
+
+
 
     }
 

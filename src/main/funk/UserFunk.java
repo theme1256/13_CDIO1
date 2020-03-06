@@ -44,8 +44,9 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public void updateUser(int oldID, int userID, String userName, String ini, String cpr) {
+    public UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) {
 
+        return null;
     }
 
     @Override
