@@ -13,18 +13,33 @@ public class UserDAO implements IUserDAO {
     public ArrayList<UserDTO> users = new ArrayList<>();
 
 
-    public UserDAO() throws IUserDAO.DALException {
-        loadUsers();
+    public UserDAO() {
+
+        try {
+            loadUsers();
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
+
+        for (int i = 0; i < users.size(); i++){
+
+            if(users.get(i).getUserId() == userId){
+
+                return users.get(i);
+
+            }
+        }
+
         return null;
     }
 
     @Override
-    public List<UserDTO> getUserList() throws DALException {
+    public ArrayList<UserDTO> getUserList() throws DALException {
         return users;
     }
 
@@ -43,6 +58,16 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public void deleteUser(int userId) throws DALException {
+
+        for (int i = 0; i < users.size(); i++){
+
+            if(users.get(i).getUserId() == userId){
+
+                users.remove(i);
+                saveUsers();
+
+            }
+        }
 
     }
 

@@ -1,15 +1,18 @@
 package funk;
 
 import dal.IUserDAO;
+import dal.UserDAO;
 import dto.UserDTO;
 
 import java.util.ArrayList;
 
 public class UserFunk implements IUserFunk {
-    private IUserDAO store;
-
+    private IUserDAO data;
+    private PasswordController psController;
     public UserFunk() {
-        //
+      data = new UserDAO();
+      psController = new PasswordController();
+
     }
 
 
@@ -20,6 +23,8 @@ public class UserFunk implements IUserFunk {
         user.setUserName(userName);
         user.setIni(ini);
         user.setCpr(cpr);
+        user.setPassword(psController.passwordGen());
+
         return user;
     }
 
@@ -30,17 +35,22 @@ public class UserFunk implements IUserFunk {
 
     @Override
     public void storeUser(UserDTO user) throws IUserDAO.DALException {
-        this.store.createUser(user);
+        this.data.createUser(user);
     }
 
     @Override
-    public ArrayList<UserDTO> getUsers() {
-        return null;
+    public ArrayList<UserDTO> getUsers() throws IUserDAO.DALException {
+
+       return data.getUserList();
+
     }
 
     @Override
-    public UserDTO getUser(int userID) {
-        return null;
+    public UserDTO getUser(int userID) throws IUserDAO.DALException {
+
+        UserDTO user = data.getUser(userID);
+
+        return user;
     }
 
     @Override
@@ -50,7 +60,9 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public void deleteUser(int userID) {
+    public void deleteUser(int userID) throws IUserDAO.DALException {
+
+        data.deleteUser(userID);
 
     }
 }
