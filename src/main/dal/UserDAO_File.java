@@ -48,7 +48,8 @@ public class UserDAO_File implements IUserDAO {
 
     @Override
     public void updateUser(int userID, UserDTO user) throws DALException {
-
+        this.deleteUser(userID);
+        this.createUser(user);
     }
 
     @Override

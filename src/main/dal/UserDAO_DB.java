@@ -47,7 +47,6 @@ public class UserDAO_DB implements IUserDAO {
 
     @Override
     public void updateUser(int userID, UserDTO user) throws DALException {
-
     }
 
 
@@ -134,7 +133,6 @@ public class UserDAO_DB implements IUserDAO {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sqlManipulation);
             connection.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

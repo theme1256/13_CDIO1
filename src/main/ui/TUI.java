@@ -32,8 +32,6 @@ public class TUI implements UI {
         TUI tui = new TUI();
 
         tui.start();
-
-
     }
 
     @Override
@@ -128,9 +126,7 @@ public class TUI implements UI {
         this.out("Opdater brugerens CPR-nummer");
         String cpr = this.input.nextLine();
         try {
-            UserDTO user = this.funk.updateUser(oldID, userID, username, ini, cpr);
-
-            this.funk.resetRoles(user);
+            UserDTO user = this.funk.createUser(userID, username, ini, cpr);
 
             this.out("Tildeling af roller", CC.GREEN);
             for (String test : new String[]{"Admin", "Pharmacist", "Foreman", "Operator"}) {
@@ -140,10 +136,8 @@ public class TUI implements UI {
                 }
             }
 
-            this.funk.deleteUser(oldID);
-            this.funk.storeUser(user);
-        }
-        catch (UserDTO.DTOException | IUserDAO.DALException e){
+            this.funk.updateUser(oldID, user);
+        } catch (UserDTO.DTOException | IUserDAO.DALException e){
             e.printStackTrace();
         }
     }

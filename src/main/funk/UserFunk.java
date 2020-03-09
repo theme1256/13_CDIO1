@@ -57,15 +57,8 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) throws IUserDAO.DALException, UserDTO.DTOException {
-        UserDTO user = data.getUser(oldID);
-
-        user.setUserId(userID);
-        user.setUserName(userName);
-        user.setIni(ini);
-        user.setCpr(cpr);
-
-        return user;
+    public void updateUser(int oldID, UserDTO user) throws IUserDAO.DALException, UserDTO.DTOException {
+        this.data.updateUser(oldID, user);
     }
 
     @Override

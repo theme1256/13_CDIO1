@@ -12,6 +12,6 @@ public interface IUserFunk {
     void resetRoles(UserDTO user);
     ArrayList<UserDTO> getUsers();
     UserDTO getUser(int userID) throws IUserDAO.DALException;
-    UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) throws IUserDAO.DALException, UserDTO.DTOException;
+    void updateUser(int oldID, UserDTO user) throws IUserDAO.DALException, UserDTO.DTOException;
     void deleteUser(int userID) throws IUserDAO.DALException;
 }
