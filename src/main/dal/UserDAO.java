@@ -17,6 +17,8 @@ public class UserDAO implements IUserDAO {
     public ArrayList<UserDTO> users = new ArrayList<>();
 
 
+
+
     public UserDAO() {
         try {
             loadUsers();
@@ -25,36 +27,6 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    @Override
-    public void createUser(UserDTO user) throws DALException {
-
-        users.add(user);
-        saveUsers();
-
-        int a = user.getUserId();
-        String b = user.getUserName();
-        String c = user.getIni();
-        String d = user.getCpr();
-        String e = user.getPassword();
-
-        try {
-            Class.forName(driver);
-
-            String sqlManipulation;
-
-            sqlManipulation = "INSERT userlist VALUES ('" + a + "', '"  + b + "', '" + c + "', '" + d + "', '" + e + "')";
-
-            Connection connection = DriverManager.getConnection(url, username, password);
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sqlManipulation);
-            connection.close();
-
-        } catch (Exception k) {
-            k.printStackTrace();
-        }
-
-
-    }
 
 
 
@@ -78,36 +50,18 @@ public class UserDAO implements IUserDAO {
     public void createUser(UserDTO user) throws DALException {
         users.add(user);
         saveUsers();
-
-
     }
+
 
     @Override
     public void deleteUser(int userId) throws DALException {
-        for (int i = 0; i < users.size(); i++) {
+
+       for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUserId() == userId) {
                 users.remove(i);
                 saveUsers();
             }
-        } */
-        int a = userId;
-
-        try {
-            Class.forName(driver);
-
-            String sqlManipulation;
-
-            sqlManipulation = "DELETE FROM userlist WHERE userID='"+a+"'";
-
-            Connection connection = DriverManager.getConnection(url, username, password);
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sqlManipulation);
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
 
     private void saveUsers() throws IUserDAO.DALException {
@@ -133,7 +87,7 @@ public class UserDAO implements IUserDAO {
 
 
 
-    private void loadUsers() throws IUserDAO.DALException {
+    public void loadUsers() throws IUserDAO.DALException {
         ObjectInputStream oIS = null;
         try {
             FileInputStream fIS = new FileInputStream("Users");
