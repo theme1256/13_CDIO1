@@ -1,8 +1,7 @@
 package funk;
 
 import dal.IUserDAO;
-import dal.UserDAO;
-import dal.UserDAOdb;
+import dal.UserDAO_DB;
 import dto.UserDTO;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class UserFunk implements IUserFunk {
     private PasswordController psController;
 
     public UserFunk() {
-      data = new UserDAOdb();
+      data = new UserDAO_DB();
       psController = new PasswordController();
     }
 

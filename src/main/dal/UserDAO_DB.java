@@ -5,30 +5,24 @@ import dto.UserDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserDAOdb implements IUserDAO {
-
-    String host = "primary.folkmann.it";
-    String port = "3306";
-    String username = "CDIO";
-    String password = "y1NzaOYI08FrdqzX";
-    String database = "/DTU_CDIO";
+public class UserDAO_DB implements IUserDAO {
+    private String host = "primary.folkmann.it";
+    private String port = "3306";
+    private String username = "CDIO";
+    private String password = "y1NzaOYI08FrdqzX";
+    private String database = "/DTU_CDIO";
 
     //Do not edit these variables
-    String driver = "com.mysql.cj.jdbc.Driver";
-    String url = "jdbc:mysql://"
-            + host + ":" + port + database+"?characterEncoding=latin1";
-
+    private String driver = "com.mysql.cj.jdbc.Driver";
+    private String url = "jdbc:mysql://" + host + ":" + port + database+"?characterEncoding=latin1";
 
     private ArrayList<UserDTO> users = new ArrayList<>();
 
-    public UserDAOdb() {
-
-
+    public UserDAO_DB() {
     }
 
     @Override
     public void createUser(UserDTO user) throws DALException {
-
         int a = user.getUserId();
         String b = user.getUserName();
         String c = user.getIni();
@@ -46,18 +40,19 @@ public class UserDAOdb implements IUserDAO {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sqlManipulation);
             connection.close();
-
         } catch (Exception k) {
             k.printStackTrace();
         }
+    }
 
+    @Override
+    public void updateUser(int userID, UserDTO user) throws DALException {
 
     }
 
 
     @Override
     public UserDTO getUser(int userId) throws NullPointerException {
-
         int id = userId;
 
         UserDTO tmp = new UserDTO();
@@ -83,9 +78,9 @@ public class UserDAOdb implements IUserDAO {
 
                connection.close();
                return tmp;
-           } else return null;
-
-
+           } else {
+               return null;
+           }
         } catch (SQLException | UserDTO.DTOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -94,7 +89,6 @@ public class UserDAOdb implements IUserDAO {
 
     @Override
     public ArrayList<UserDTO> getUserList() {
-
         users = new ArrayList<UserDTO>();
         try {
             Class.forName(driver);
@@ -117,22 +111,16 @@ public class UserDAOdb implements IUserDAO {
 
                 users.add(tmp);
             }
-
             connection.close();
-
         } catch (ClassNotFoundException | SQLException | UserDTO.DTOException e) {
             System.out.println("HLLOA");
             // e.printStackTrace();
         }
-
         return users;
     }
 
-
     @Override
     public void deleteUser(int userId) throws DALException {
-
-
         int a = userId;
 
         try {
@@ -150,7 +138,5 @@ public class UserDAOdb implements IUserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 }

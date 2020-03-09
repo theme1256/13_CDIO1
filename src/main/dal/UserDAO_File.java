@@ -13,22 +13,16 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class UserDAO implements IUserDAO {
+public class UserDAO_File implements IUserDAO {
     public ArrayList<UserDTO> users = new ArrayList<>();
 
-
-
-
-    public UserDAO() {
+    public UserDAO_File() {
         try {
             loadUsers();
         } catch (DALException e) {
             e.printStackTrace();
         }
     }
-
-
-
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
@@ -52,6 +46,10 @@ public class UserDAO implements IUserDAO {
         saveUsers();
     }
 
+    @Override
+    public void updateUser(int userID, UserDTO user) throws DALException {
+
+    }
 
     @Override
     public void deleteUser(int userId) throws DALException {
@@ -84,8 +82,6 @@ public class UserDAO implements IUserDAO {
             }
         }
     }
-
-
 
     public void loadUsers() throws IUserDAO.DALException {
         ObjectInputStream oIS = null;
