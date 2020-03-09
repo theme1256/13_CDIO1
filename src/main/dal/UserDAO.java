@@ -4,12 +4,20 @@ package dal;
 import dto.UserDTO;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class UserDAO implements IUserDAO {
     public ArrayList<UserDTO> users = new ArrayList<>();
+
+
+
 
     public UserDAO() {
         try {
@@ -18,6 +26,9 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
     }
+
+
+
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
@@ -41,9 +52,11 @@ public class UserDAO implements IUserDAO {
         saveUsers();
     }
 
+
     @Override
     public void deleteUser(int userId) throws DALException {
-        for (int i = 0; i < users.size(); i++) {
+
+       for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUserId() == userId) {
                 users.remove(i);
                 saveUsers();
@@ -74,7 +87,7 @@ public class UserDAO implements IUserDAO {
 
 
 
-    private void loadUsers() throws IUserDAO.DALException {
+    public void loadUsers() throws IUserDAO.DALException {
         ObjectInputStream oIS = null;
         try {
             FileInputStream fIS = new FileInputStream("Users");

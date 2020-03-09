@@ -99,7 +99,7 @@ public class UserDTO implements Serializable{
 
     @Override
     public String toString() {
-        return "UserDTO [userId=" + userId + ", userName=" + userName + ", ini=" + ini + ", roles=" + roles + "]";
+        return "UserDTO [userId: " + userId + " | userName: " + userName + " | ini: " + ini + " | roles: " + roles + " | password: " + password + "]";
     }
 
     public class DTOException extends Exception {
