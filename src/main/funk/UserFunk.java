@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class UserFunk implements IUserFunk {
     private IUserDAO data;
+
     private PasswordController psController;
     public UserFunk() {
       data = new UserDAO();
@@ -37,6 +38,7 @@ public class UserFunk implements IUserFunk {
     public void storeUser(UserDTO user) throws IUserDAO.DALException {
         this.data.createUser(user);
     }
+
 
     @Override
     public ArrayList<UserDTO> getUsers() throws IUserDAO.DALException {

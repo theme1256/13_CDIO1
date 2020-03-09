@@ -4,14 +4,30 @@ package dal;
 import dto.UserDTO;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class UserDAO implements IUserDAO {
 
     public ArrayList<UserDTO> users = new ArrayList<>();
 
+
+    //Edit the variables below to match a specific setup
+    String host = "localhost";
+    String port = "3306";
+    String username = "root";
+    String password = "fly2005";
+    String database = "/cdiodatabase";
+
+    //Do not edit these variables
+    String driver = "com.mysql.cj.jdbc.Driver";
+    String url = "jdbc:mysql://" + host + ":" + port + database+"?characterEncoding=latin1";
 
     public UserDAO() {
 
@@ -21,6 +37,39 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void createUser(UserDTO user) throws DALException {
+
+        users.add(user);
+        saveUsers();
+
+        int a = user.getUserId();
+        String b = user.getUserName();
+        String c = user.getIni();
+        String d = user.getCpr();
+        String e = user.getPassword();
+
+        try {
+            Class.forName(driver);
+
+            String sqlManipulation;
+
+            sqlManipulation = "INSERT userlist VALUES ('" + a + "', '"  + b + "', '" + c + "', '" + d + "', '" + e + "')";
+
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sqlManipulation);
+            connection.close();
+
+        } catch (Exception k) {
+            k.printStackTrace();
+        }
+
+
+    }
+
 
 
     @Override
@@ -43,13 +92,7 @@ public class UserDAO implements IUserDAO {
         return users;
     }
 
-    @Override
-    public void createUser(UserDTO user) throws DALException {
-        users.add(user);
-        saveUsers();
 
-
-    }
 
     @Override
     public void updateUser(UserDTO user) throws DALException {
@@ -59,7 +102,7 @@ public class UserDAO implements IUserDAO {
     @Override
     public void deleteUser(int userId) throws DALException {
 
-        for (int i = 0; i < users.size(); i++){
+       /* for (int i = 0; i < users.size(); i++){
 
             if(users.get(i).getUserId() == userId){
 
@@ -67,7 +110,25 @@ public class UserDAO implements IUserDAO {
                 saveUsers();
 
             }
+        } */
+        int a = userId;
+
+        try {
+            Class.forName(driver);
+
+            String sqlManipulation;
+
+            sqlManipulation = "DELETE FROM userlist WHERE userID='"+a+"'";
+
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sqlManipulation);
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
     }
 
