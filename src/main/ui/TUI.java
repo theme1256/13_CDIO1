@@ -109,10 +109,10 @@ public class TUI implements UI {
             this.funk.getUsers().forEach((user) -> {
                 this.out(user.toString());
             });
-
-        } catch (IUserDAO.DALException e){
+        } catch (IUserDAO.DALException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -126,11 +126,11 @@ public class TUI implements UI {
         int userID = this.input.nextInt();
         this.input.nextLine();
         this.out("Opdater brugerens username (2-20 tegn)");
-        String username = this.input.next();
+        String username = this.input.nextLine();
         this.out("Opdater brugerens initialer");
-        String ini = this.input.next();
+        String ini = this.input.nextLine();
         this.out("Opdater brugerens CPR-nummer");
-        String cpr = this.input.next();
+        String cpr = this.input.nextLine();
         try {
             UserDTO user = this.funk.updateUser(oldID, userID, username, ini, cpr);
 
