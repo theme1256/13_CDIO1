@@ -11,6 +11,6 @@ public interface IUserFunk {
     void storeUser(UserDTO user) throws IUserDAO.DALException;
     ArrayList<UserDTO> getUsers() throws IUserDAO.DALException;
     UserDTO getUser(int userID) throws IUserDAO.DALException;
-    UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr);
+    UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) throws IUserDAO.DALException, UserDTO.DTOException;
     void deleteUser(int userID) throws IUserDAO.DALException;
 }

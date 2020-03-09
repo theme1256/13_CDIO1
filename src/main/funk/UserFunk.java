@@ -9,12 +9,11 @@ import java.util.ArrayList;
 public class UserFunk implements IUserFunk {
     private IUserDAO data;
     private PasswordController psController;
+
     public UserFunk() {
       data = new UserDAO();
       psController = new PasswordController();
-
     }
-
 
     @Override
     public UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException {
@@ -40,23 +39,26 @@ public class UserFunk implements IUserFunk {
 
     @Override
     public ArrayList<UserDTO> getUsers() throws IUserDAO.DALException {
-
        return data.getUserList();
-
     }
 
     @Override
     public UserDTO getUser(int userID) throws IUserDAO.DALException {
-
         UserDTO user = data.getUser(userID);
 
         return user;
     }
 
     @Override
-    public UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) {
+    public UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) throws IUserDAO.DALException, UserDTO.DTOException {
+        UserDTO user = data.getUser(oldID);
 
-        return null;
+        user.setUserId(userID);
+        user.setUserName(userName);
+        user.setIni(ini);
+        user.setCpr(cpr);
+
+        return user;
     }
 
     @Override
