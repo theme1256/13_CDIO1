@@ -153,9 +153,4 @@ public class UserDAOdb implements IUserDAO {
 
     }
 
-    // rightPad method pads short attributenames and values to same columnwidth
-    public static String rightPad(String str, int num) {
-        return String.format("%1$-" + num + "s", str);
-    }
-
 }
