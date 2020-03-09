@@ -19,11 +19,11 @@ public class UserDAO implements IUserDAO {
 
 
     //Edit the variables below to match a specific setup
-    String host = "localhost";
+    String host = "primary.folkmann.it";
     String port = "3306";
-    String username = "root";
-    String password = "fly2005";
-    String database = "/cdiodatabase";
+    String username = "CDIO";
+    String password = "y1NzaOYI08FrdqzX";
+    String database = "/DTU_CDIO";
 
     //Do not edit these variables
     String driver = "com.mysql.cj.jdbc.Driver";
@@ -31,11 +31,11 @@ public class UserDAO implements IUserDAO {
 
     public UserDAO() {
 
-        try {
+        /*try {
             loadUsers();
         } catch (DALException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 
