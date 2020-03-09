@@ -33,6 +33,7 @@ public class TUI implements UI {
 
         tui.start();
 
+
     }
 
     @Override
@@ -150,7 +151,7 @@ public class TUI implements UI {
     @Override
     public void deleteUser() {
         this.out("---FJERN BRUGER---", CC.CYAN_BRIGHT);
-        this.out("Indstast Bruger UD");
+        this.out("Indstast Bruger ID");
 
         int id = this.input.nextInt();
         this.input.nextLine();
