@@ -106,19 +106,46 @@ public class TUI implements UI {
 
     @Override
     public void listUsers() {
-        try {
-            this.funk.getUsers().forEach((user) -> {
-                this.out(user.toString());
-            });
-
-        } catch (IUserDAO.DALException e){
-            e.printStackTrace();
-        }
+        this.funk.getUsers().forEach((user) -> {
+            this.out(user.toString());
+        });
     }
 
     @Override
     public void updateUser() {
+        this.line(CC.GREEN);
+        this.out("Opdater brugeren", CC.GREEN);
+        this.out("Hvad er brugerens ID?");
+        int oldID = this.input.nextInt();
+        this.input.nextLine();
+        this.out("Opdater brugerens ID (11-99)");
+        int userID = this.input.nextInt();
+        this.input.nextLine();
+        this.out("Opdater brugerens username (2-20 tegn)");
+        String username = this.input.nextLine();
+        this.out("Opdater brugerens initialer");
+        String ini = this.input.nextLine();
+        this.out("Opdater brugerens CPR-nummer");
+        String cpr = this.input.nextLine();
+        try {
+            UserDTO user = this.funk.updateUser(oldID, userID, username, ini, cpr);
 
+            this.funk.resetRoles(user);
+
+            this.out("Tildeling af roller", CC.GREEN);
+            for (String test : new String[]{"Admin", "Pharmacist", "Foreman", "Operator"}) {
+                this.out("Skal brugeren være" + test.toLowerCase() + "? [y/N]");
+                if (this.input.nextLine().toLowerCase().contains("y")) {
+                    this.funk.addRole(user, test);
+                }
+            }
+
+            this.funk.deleteUser(oldID);
+            this.funk.storeUser(user);
+        }
+        catch (UserDTO.DTOException | IUserDAO.DALException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -129,23 +156,19 @@ public class TUI implements UI {
         int id = this.input.nextInt();
         this.input.nextLine();
 
-       try {
-           UserDTO user = funk.getUser(id);
-           System.out.println(user.toString());
+        try {
+            UserDTO user = funk.getUser(id);
+            System.out.println(user.toString());
 
+            this.out("Er du sikker på du vil fjerne " + user.getUserName() + "ID: " + user.getUserId() + " fra databasen? + [y/N]", CC.RED);
 
-           this.out("Er du sikker på du vil fjerne " + user.getUserName() + "ID: " + user.getUserId() + " fra databasen? + [y/N]", CC.RED);
-
-           if (this.input.nextLine().toLowerCase().contains("y")) {
-               this.out("Bruger: " + user.getUserName() + " ID: " + user.getUserId() + " er succesfuldt blevet fjernet fra databasen");
-               this.funk.deleteUser(id);
-           }
-
-       } catch (IUserDAO.DALException e){
-
-           this.out("Denne bruger eksisterer ikke");
-       }
-
+            if (this.input.nextLine().toLowerCase().contains("y")) {
+                this.out("Bruger: " + user.getUserName() + " ID: " + user.getUserId() + " er succesfuldt blevet fjernet fra databasen");
+                this.funk.deleteUser(id);
+            }
+        } catch (IUserDAO.DALException e){
+            this.out("Denne bruger eksisterer ikke");
+        }
     }
 
     @Override

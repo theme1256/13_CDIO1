@@ -14,30 +14,16 @@ import java.util.Scanner;
 
 
 public class UserDAO implements IUserDAO {
-
     public ArrayList<UserDTO> users = new ArrayList<>();
 
 
-    //Edit the variables below to match a specific setup
-    String host = "primary.folkmann.it";
-    String port = "3306";
-    String username = "CDIO";
-    String password = "y1NzaOYI08FrdqzX";
-    String database = "/DTU_CDIO";
-
-    //Do not edit these variables
-    String driver = "com.mysql.cj.jdbc.Driver";
-    String url = "jdbc:mysql://" + host + ":" + port + database+"?characterEncoding=latin1";
-
     public UserDAO() {
-
         try {
             loadUsers();
         } catch (DALException e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void createUser(UserDTO user) throws DALException {
@@ -74,41 +60,34 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
-
         for (int i = 0; i < users.size(); i++){
-
             if(users.get(i).getUserId() == userId){
-
                 return users.get(i);
-
             }
         }
 
-        return null;
+        throw new DALException("Brugeren blev ikke fundet");
     }
 
     @Override
-    public ArrayList<UserDTO> getUserList() throws DALException {
+    public ArrayList<UserDTO> getUserList() {
         return users;
     }
 
-
-
     @Override
-    public void updateUser(UserDTO user) throws DALException {
+    public void createUser(UserDTO user) throws DALException {
+        users.add(user);
+        saveUsers();
+
 
     }
 
     @Override
     public void deleteUser(int userId) throws DALException {
-
-       /* for (int i = 0; i < users.size(); i++){
-
-            if(users.get(i).getUserId() == userId){
-
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserId() == userId) {
                 users.remove(i);
                 saveUsers();
-
             }
         } */
         int a = userId;
@@ -129,10 +108,7 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
 
-
     }
-
-
 
     private void saveUsers() throws IUserDAO.DALException {
         ObjectOutputStream oOS =null;
@@ -184,15 +160,4 @@ public class UserDAO implements IUserDAO {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 }

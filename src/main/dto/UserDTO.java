@@ -93,6 +93,9 @@ public class UserDTO implements Serializable{
     public boolean removeRole(String role){
         return this.roles.remove(role);
     }
+    public void removeRoles() {
+        this.roles = new ArrayList<String>();
+    }
 
     @Override
     public String toString() {
