@@ -56,7 +56,7 @@ public class UserDAOdb implements IUserDAO {
 
 
     @Override
-    public UserDTO getUser(int userId) {
+    public UserDTO getUser(int userId) throws NullPointerException {
 
         int id = userId;
 
@@ -74,22 +74,22 @@ public class UserDAOdb implements IUserDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlManipulation);
 
-            resultSet.next();
-            tmp.setIni(resultSet.getString("INI"));
-            tmp.setUserId(resultSet.getInt("UserID"));
-            tmp.setPassword(resultSet.getString("userPS"));
-            tmp.setCpr(resultSet.getString("CPR"));
-            tmp.setUserName(resultSet.getString("UserName"));
+           if(resultSet.next()) {
+               tmp.setIni(resultSet.getString("INI"));
+               tmp.setUserId(resultSet.getInt("UserID"));
+               tmp.setPassword(resultSet.getString("userPS"));
+               tmp.setCpr(resultSet.getString("CPR"));
+               tmp.setUserName(resultSet.getString("UserName"));
 
-            connection.close();
-
-            return tmp;
+               connection.close();
+               return tmp;
+           } else return null;
 
 
         } catch (SQLException | UserDTO.DTOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return tmp;
+        return null;
     }
 
     @Override
@@ -121,7 +121,8 @@ public class UserDAOdb implements IUserDAO {
             connection.close();
 
         } catch (ClassNotFoundException | SQLException | UserDTO.DTOException e) {
-            e.printStackTrace();
+            System.out.println("HLLOA");
+            // e.printStackTrace();
         }
 
         return users;

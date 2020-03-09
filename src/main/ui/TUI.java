@@ -166,7 +166,7 @@ public class TUI implements UI {
                 this.out("Bruger: " + user.getUserName() + " ID: " + user.getUserId() + " er succesfuldt blevet fjernet fra databasen");
                 this.funk.deleteUser(id);
             }
-        } catch (IUserDAO.DALException e){
+        } catch (IUserDAO.DALException | NullPointerException e){
             this.out("Denne bruger eksisterer ikke");
         }
     }
