@@ -9,12 +9,9 @@ import java.util.List;
 
 
 public class UserDAO implements IUserDAO {
-
     public ArrayList<UserDTO> users = new ArrayList<>();
 
-
     public UserDAO() {
-
         try {
             loadUsers();
         } catch (DALException e) {
@@ -22,24 +19,19 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-
     @Override
     public UserDTO getUser(int userId) throws DALException {
-
         for (int i = 0; i < users.size(); i++){
-
             if(users.get(i).getUserId() == userId){
-
                 return users.get(i);
-
             }
         }
 
-        return null;
+        throw new DALException("Brugeren blev ikke fundet");
     }
 
     @Override
-    public ArrayList<UserDTO> getUserList() throws DALException {
+    public ArrayList<UserDTO> getUserList() {
         return users;
     }
 
@@ -47,31 +39,17 @@ public class UserDAO implements IUserDAO {
     public void createUser(UserDTO user) throws DALException {
         users.add(user);
         saveUsers();
-
-
-    }
-
-    @Override
-    public void updateUser(UserDTO user) throws DALException {
-
     }
 
     @Override
     public void deleteUser(int userId) throws DALException {
-
-        for (int i = 0; i < users.size(); i++){
-
-            if(users.get(i).getUserId() == userId){
-
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserId() == userId) {
                 users.remove(i);
                 saveUsers();
-
             }
         }
-
     }
-
-
 
     private void saveUsers() throws IUserDAO.DALException {
         ObjectOutputStream oOS =null;
@@ -123,15 +101,4 @@ public class UserDAO implements IUserDAO {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 }

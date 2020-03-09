@@ -38,7 +38,12 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public ArrayList<UserDTO> getUsers() throws IUserDAO.DALException {
+    public void resetRoles(UserDTO user) {
+        user.removeRoles();
+    }
+
+    @Override
+    public ArrayList<UserDTO> getUsers() {
        return data.getUserList();
     }
 
@@ -63,8 +68,6 @@ public class UserFunk implements IUserFunk {
 
     @Override
     public void deleteUser(int userID) throws IUserDAO.DALException {
-
         data.deleteUser(userID);
-
     }
 }
