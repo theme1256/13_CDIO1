@@ -31,11 +31,11 @@ public class UserDAO implements IUserDAO {
 
     public UserDAO() {
 
-        /*try {
+        try {
             loadUsers();
         } catch (DALException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 
