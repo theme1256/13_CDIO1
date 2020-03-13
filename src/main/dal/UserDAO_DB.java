@@ -16,7 +16,7 @@ public class UserDAO_DB implements IUserDAO {
 
     //Do not edit these variables
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://" + host + ":" + port + database+"?characterEncoding=latin1";
+    private String url = "jdbc:mysql://" + this.host + ":" + this.port + this.database + "?characterEncoding=latin1";
 
     public UserDAO_DB() {
     }
@@ -62,13 +62,13 @@ public class UserDAO_DB implements IUserDAO {
     @Override
     public UserDTO getUser(int userId) throws NullPointerException {
         try {
-            Class.forName(driver);
+            Class.forName(this.driver);
 
             String sqlManipulation;
 
             sqlManipulation = "SELECT * FROM Userlist WHERE UserID='" + userId + "'";
 
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlManipulation);
 
@@ -107,13 +107,13 @@ public class UserDAO_DB implements IUserDAO {
         ArrayList<UserDTO> users = new ArrayList<UserDTO>();
 
         try {
-            Class.forName(driver);
+            Class.forName(this.driver);
 
             String sqlStatement;
 
             sqlStatement = "SELECT * FROM Userlist";
 
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlStatement);
 
@@ -149,13 +149,13 @@ public class UserDAO_DB implements IUserDAO {
 
     @Override
     public void deleteUser(int userId) throws DALException, ClassNotFoundException, SQLException {
-        Class.forName(driver);
+        Class.forName(this.driver);
 
         String sqlManipulation;
 
         sqlManipulation = "DELETE FROM Userlist WHERE UserID='" + userId + "'";
 
-        Connection connection = DriverManager.getConnection(url, username, password);
+        Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
         Statement statement = connection.createStatement();
         statement.executeUpdate(sqlManipulation);
         connection.close();

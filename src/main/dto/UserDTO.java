@@ -33,7 +33,7 @@ public class UserDTO implements Serializable{
             throw new DTOException("ID er ikke i den tilladte range");
     }
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
     public void setUserName(String userName) throws DTOException {
         if (userName.length() >= 2  && userName.length() <= 20)
@@ -51,7 +51,7 @@ public class UserDTO implements Serializable{
             throw new DTOException("Initialer er ikke i den talladt længde");
     }
     public String getCpr() {
-        return cpr;
+        return this.cpr;
     }
     public void setCpr(String cpr) {
         this.cpr = cpr;
@@ -62,7 +62,7 @@ public class UserDTO implements Serializable{
     }
     public void setRoles(List<String> roles) throws DTOException {
         for (Object test : roles.toArray()) {
-            if (!possible_roles.contains(test)) {
+            if (!this.possible_roles.contains(test)) {
                 throw new DTOException("Rolle " + test.toString() + " er ikke en godkendt rolle");
             }
         }
@@ -70,7 +70,7 @@ public class UserDTO implements Serializable{
     }
 
     public void addRole(String role) throws DTOException {
-        if (!possible_roles.contains(role)) {
+        if (!this.possible_roles.contains(role)) {
             throw new DTOException("Rolle " + role + " er ikke en godkendt rolle");
         }
         this.roles.add(role);
@@ -82,7 +82,7 @@ public class UserDTO implements Serializable{
 
     }
     public String getPassword(){
-        return password;
+        return this.password;
     }
 
     /**
@@ -99,11 +99,10 @@ public class UserDTO implements Serializable{
 
     @Override
     public String toString() {
-        return "UserDTO [userId: " + userId + " | userName: " + userName + " | ini: " + ini + " | roles: " + roles + " | CPR: " + cpr + " | password: " + password + "]";
+        return "UserDTO [userId: " + this.userId + " | userName: " + this.userName + " | ini: " + this.ini + " | roles: " + this.roles + " | CPR: " + this.cpr + " | password: " + this.password + "]";
     }
 
     public class DTOException extends Exception {
-
         /**
          *
          */

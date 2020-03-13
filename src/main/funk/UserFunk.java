@@ -47,12 +47,12 @@ public class UserFunk implements IUserFunk {
 
     @Override
     public ArrayList<UserDTO> getUsers() {
-       return data.getUserList();
+       return this.data.getUserList();
     }
 
     @Override
     public UserDTO getUser(int userID) throws IUserDAO.DALException, SQLException {
-        UserDTO user = data.getUser(userID);
+        UserDTO user = this.data.getUser(userID);
 
         return user;
     }
@@ -64,6 +64,6 @@ public class UserFunk implements IUserFunk {
 
     @Override
     public void deleteUser(int userID) throws IUserDAO.DALException, SQLException, ClassNotFoundException {
-        data.deleteUser(userID);
+        this.data.deleteUser(userID);
     }
 }

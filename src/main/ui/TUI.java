@@ -166,7 +166,7 @@ public class TUI implements UI {
         this.input.nextLine();
 
         try {
-            UserDTO user = funk.getUser(id);
+            UserDTO user = this.funk.getUser(id);
             System.out.println(user.toString());
 
             this.out("Er du sikker på du vil fjerne " + user.getUserName() + "ID: " + user.getUserId() + " fra databasen? + [y/N]", CC.RED);

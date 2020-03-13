@@ -26,9 +26,9 @@ public class UserDAO_File implements IUserDAO {
 
     @Override
     public UserDTO getUser(int userId) throws DALException {
-        for (int i = 0; i < users.size(); i++){
-            if(users.get(i).getUserId() == userId){
-                return users.get(i);
+        for (int i = 0; i < this.users.size(); i++){
+            if(this.users.get(i).getUserId() == userId){
+                return this.users.get(i);
             }
         }
 
@@ -37,12 +37,12 @@ public class UserDAO_File implements IUserDAO {
 
     @Override
     public ArrayList<UserDTO> getUserList() {
-        return users;
+        return this.users;
     }
 
     @Override
     public void createUser(UserDTO user) throws DALException {
-        users.add(user);
+        this.users.add(user);
         saveUsers();
     }
 
@@ -54,9 +54,9 @@ public class UserDAO_File implements IUserDAO {
 
     @Override
     public void deleteUser(int userId) throws DALException {
-       for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUserId() == userId) {
-                users.remove(i);
+       for (int i = 0; i < this.users.size(); i++) {
+            if (this.users.get(i).getUserId() == userId) {
+                this.users.remove(i);
                 saveUsers();
             }
         }
@@ -67,7 +67,7 @@ public class UserDAO_File implements IUserDAO {
         try {
             FileOutputStream fOS = new FileOutputStream("Users");
             oOS = new ObjectOutputStream(fOS);
-            oOS.writeObject(users);
+            oOS.writeObject(this.users);
         } catch (FileNotFoundException e) {
             throw new IUserDAO.DALException("Error locating file", e);
         } catch (IOException e) {
@@ -90,7 +90,7 @@ public class UserDAO_File implements IUserDAO {
             oIS = new ObjectInputStream(fIS);
             Object inObj = oIS.readObject();
             if (inObj instanceof ArrayList){
-                users = (ArrayList<UserDTO>) inObj;
+                this.users = (ArrayList<UserDTO>) inObj;
             } else {
                 throw new IUserDAO.DALException("Wrong object in file");
             }
