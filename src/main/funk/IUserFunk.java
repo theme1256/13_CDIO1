@@ -13,6 +13,6 @@ public interface IUserFunk {
     void resetRoles(UserDTO user);
     ArrayList<UserDTO> getUsers();
     UserDTO getUser(int userID) throws IUserDAO.DALException, SQLException;
-    UserDTO updateUser(int oldID, int userID, String userName, String ini, String cpr) throws IUserDAO.DALException, UserDTO.DTOException;
-    void deleteUser(int userID) throws IUserDAO.DALException;
+    void updateUser(int oldID, UserDTO user) throws IUserDAO.DALException, UserDTO.DTOException, SQLException, ClassNotFoundException;
+    void deleteUser(int userID) throws IUserDAO.DALException, SQLException, ClassNotFoundException;
 }

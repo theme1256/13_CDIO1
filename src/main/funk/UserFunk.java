@@ -12,9 +12,9 @@ public class UserFunk implements IUserFunk {
 
     private PasswordController psController;
 
-    public UserFunk() {
-      data = new UserDAO_DB();
-      psController = new PasswordController();
+    public UserFunk(IUserDAO dal) {
+      this.data = dal;
+      this.psController = new PasswordController();
     }
 
     @Override
@@ -24,7 +24,7 @@ public class UserFunk implements IUserFunk {
         user.setUserName(userName);
         user.setIni(ini);
         user.setCpr(cpr);
-        user.setPassword(psController.passwordGen());
+        user.setPassword(this.psController.passwordGen());
 
         return user;
     }
@@ -58,12 +58,12 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public void updateUser(int oldID, UserDTO user) throws IUserDAO.DALException, UserDTO.DTOException {
+    public void updateUser(int oldID, UserDTO user) throws IUserDAO.DALException, UserDTO.DTOException, SQLException, ClassNotFoundException {
         this.data.updateUser(oldID, user);
     }
 
     @Override
-    public void deleteUser(int userID) throws IUserDAO.DALException {
+    public void deleteUser(int userID) throws IUserDAO.DALException, SQLException, ClassNotFoundException {
         data.deleteUser(userID);
     }
 }

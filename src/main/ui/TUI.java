@@ -1,9 +1,8 @@
 package ui;
 
-import dal.IUserDAO;
+import dal.*;
 import dto.UserDTO;
 import funk.IUserFunk;
-import funk.PasswordController;
 import funk.UserFunk;
 
 import java.sql.SQLException;
@@ -16,7 +15,27 @@ public class TUI implements UI {
 
     public TUI() {
         this.input = new Scanner(System.in);
-        this.funk = new UserFunk();
+        boolean initing = true;
+        while (initing) {
+            this.line(CC.CYAN_BRIGHT);
+            this.out("Vælg hvordan brugere skal opbevares:", CC.CYAN_BRIGHT);
+            this.out("  1. MySQL database");
+            this.out("  2. En lokal fil");
+            this.out("Dit valg:", CC.CYAN_BRIGHT);
+            int choice = this.input.nextInt();
+            switch (choice) {
+                case 1:
+                    this.funk = new UserFunk(new UserDAO_DB());
+                    initing = false;
+                    break;
+                case 2:
+                    this.funk = new UserFunk(new UserDAO_File());
+                    initing = false;
+                    break;
+                default:
+                    this.out("Kunne ikke genkende handling", CC.RED_BOLD);
+            }
+        }
     }
 
     private void out(String msg) {
@@ -27,12 +46,6 @@ public class TUI implements UI {
     }
     private void line(String inp) {
         this.out("-".repeat(60), inp);
-    }
-
-    public static void main(String[] args) {
-        TUI tui = new TUI();
-
-        tui.start();
     }
 
     @Override
@@ -139,7 +152,7 @@ public class TUI implements UI {
             }
 
             this.funk.updateUser(oldID, user);
-        } catch (ClassNotFoundException | SQLException | UserDTO.DTOException | IUserDAO.DALException e){
+        } catch (SQLException | UserDTO.DTOException | IUserDAO.DALException | ClassNotFoundException e){
             e.printStackTrace();
       }
     }
@@ -162,7 +175,7 @@ public class TUI implements UI {
                 this.out("Bruger: " + user.getUserName() + " ID: " + user.getUserId() + " er succesfuldt blevet fjernet fra databasen");
                 this.funk.deleteUser(id);
             }
-        } catch (SQLException | IUserDAO.DALException | NullPointerException e){
+        } catch (SQLException | IUserDAO.DALException | NullPointerException | ClassNotFoundException e){
             this.out("Denne bruger eksisterer ikke");
         }
     }

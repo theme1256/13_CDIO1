@@ -8,9 +8,9 @@ import dto.UserDTO;
 public interface IUserDAO {
     UserDTO getUser(int userId) throws DALException;
     ArrayList<UserDTO> getUserList();
-    void updateUser(int userID, UserDTO user) throws DALException;
+    void updateUser(int userID, UserDTO user) throws DALException, ClassNotFoundException, SQLException;
     void createUser(UserDTO user) throws DALException, SQLException, ClassNotFoundException;
-    void deleteUser(int userId) throws DALException;
+    void deleteUser(int userId) throws DALException, ClassNotFoundException, SQLException;
 
     public class DALException extends Exception {
 
