@@ -6,6 +6,7 @@ import funk.IUserFunk;
 import funk.PasswordController;
 import funk.UserFunk;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class TUI implements UI {
@@ -96,11 +97,12 @@ public class TUI implements UI {
                     this.funk.addRole(user, test);
                 }
             }
+            this.funk.storeUser(user);
             System.out.print("Password tildelt til " + user.getUserName() + " |ID: " + user.getUserId() + "| er: ");
             this.out(user.getPassword(), CC.PURPLE_BOLD_BRIGHT);
-            this.funk.storeUser(user);
-        } catch (UserDTO.DTOException | IUserDAO.DALException e) {
-            e.printStackTrace();
+
+        } catch (ClassNotFoundException | SQLException |UserDTO.DTOException | IUserDAO.DALException e) {
+            System.out.println("Der findes allerede en bruger med dette ID");
         }
     }
 
@@ -143,9 +145,9 @@ public class TUI implements UI {
             this.funk.deleteUser(oldID);
             this.funk.storeUser(user);
         }
-        catch (UserDTO.DTOException | IUserDAO.DALException e){
+        catch (ClassNotFoundException | SQLException | UserDTO.DTOException | IUserDAO.DALException e){
             e.printStackTrace();
-        }
+      }
     }
 
     @Override
@@ -166,7 +168,7 @@ public class TUI implements UI {
                 this.out("Bruger: " + user.getUserName() + " ID: " + user.getUserId() + " er succesfuldt blevet fjernet fra databasen");
                 this.funk.deleteUser(id);
             }
-        } catch (IUserDAO.DALException | NullPointerException e){
+        } catch (SQLException | IUserDAO.DALException | NullPointerException e){
             this.out("Denne bruger eksisterer ikke");
         }
     }

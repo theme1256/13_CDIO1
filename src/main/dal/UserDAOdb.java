@@ -4,6 +4,7 @@ import dto.UserDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOdb implements IUserDAO {
 
@@ -27,29 +28,34 @@ public class UserDAOdb implements IUserDAO {
     }
 
     @Override
-    public void createUser(UserDTO user) throws DALException {
+    public void createUser(UserDTO user) throws DALException, SQLException, ClassNotFoundException {
 
-        int a = user.getUserId();
+        int id = user.getUserId();
         String b = user.getUserName();
         String c = user.getIni();
         String d = user.getCpr();
         String e = user.getPassword();
+        List<String> roles = user.getRoles();
 
-        try {
             Class.forName(driver);
 
             String sqlManipulation;
 
-            sqlManipulation = "INSERT Userlist VALUES ('" + a + "', '" + b + "', '" + c + "', '" + d + "', '" + e + "')";
+            sqlManipulation = "INSERT Userlist VALUES ('" + id + "', '" + b + "', '" + c + "', '" + d + "', '" + e + "')";
 
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
             statement.executeUpdate(sqlManipulation);
+
+            for(String temp : roles){
+
+                sqlManipulation ="INSERT UserRoles VALUES( "+ id +" , \"" + temp + "\")";
+                statement.executeUpdate(sqlManipulation);
+            }
+
+
             connection.close();
 
-        } catch (Exception k) {
-            k.printStackTrace();
-        }
 
 
     }
@@ -69,7 +75,6 @@ public class UserDAOdb implements IUserDAO {
 
             sqlManipulation = "SELECT * FROM Userlist WHERE UserID='" + id + "'";
 
-
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlManipulation);
@@ -80,6 +85,17 @@ public class UserDAOdb implements IUserDAO {
                tmp.setPassword(resultSet.getString("userPS"));
                tmp.setCpr(resultSet.getString("CPR"));
                tmp.setUserName(resultSet.getString("UserName"));
+
+
+               String getUserRole = "SELECT * FROM UserRoles WHERE UserID='" + tmp.getUserId() + "'";
+               Statement s2 = connection.createStatement();
+               ResultSet rs = s2.executeQuery(getUserRole);
+
+               while (rs.next()){
+                   tmp.addRole(rs.getString("Role"));
+               }
+               rs.close();
+               s2.close();
 
                connection.close();
                return tmp;
@@ -96,6 +112,7 @@ public class UserDAOdb implements IUserDAO {
     public ArrayList<UserDTO> getUserList() {
 
         users = new ArrayList<UserDTO>();
+
         try {
             Class.forName(driver);
 
@@ -115,14 +132,24 @@ public class UserDAOdb implements IUserDAO {
                 tmp.setCpr(resultSet.getString("CPR"));
                 tmp.setUserName(resultSet.getString("UserName"));
 
+
+                sqlStatement = "SELECT * FROM UserRoles WHERE UserID='" + tmp.getUserId() + "'";
+                Statement s2 = connection.createStatement();
+                ResultSet rs = s2.executeQuery(sqlStatement);
+
+                while (rs.next()){
+                    tmp.addRole(rs.getString("Role"));
+                }
+                rs.close();
+                s2.close();
+
                 users.add(tmp);
             }
 
             connection.close();
 
         } catch (ClassNotFoundException | SQLException | UserDTO.DTOException e) {
-            System.out.println("HLLOA");
-            // e.printStackTrace();
+             e.printStackTrace();
         }
 
         return users;
