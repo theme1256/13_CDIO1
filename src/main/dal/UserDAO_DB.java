@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO_DB implements IUserDAO {
-    //private String host = "primary.folkmann.it";
-    private String host = "192.168.3.3";
+    private String host = "primary.folkmann.it";
+    //private String host = "192.168.3.3";
     private String port = "3306";
     private String username = "CDIO";
     private String password = "y1NzaOYI08FrdqzX";
