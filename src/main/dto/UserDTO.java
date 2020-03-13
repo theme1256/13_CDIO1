@@ -39,7 +39,7 @@ public class UserDTO implements Serializable{
         if (userName.length() >= 2  && userName.length() <= 20)
             this.userName = userName;
         else
-            throw new DTOException("Username er ikke i den talladt længde");
+            throw new DTOException("Username er ikke i den talladte længde");
     }
     public String getIni() {
         return ini;
@@ -48,13 +48,16 @@ public class UserDTO implements Serializable{
         if (ini.length() >= 2  && ini.length() <= 4)
             this.ini = ini;
         else
-            throw new DTOException("Initialer er ikke i den talladt længde");
+            throw new DTOException("Initialer er ikke i den talladte længde");
     }
     public String getCpr() {
         return this.cpr;
     }
-    public void setCpr(String cpr) {
-        this.cpr = cpr;
+    public void setCpr(String cpr) throws DTOException {
+        if (cpr.length() == 11)
+            this.cpr = cpr;
+        else
+            throw new DTOException("CPR er ikke i den talladte længde");
     }
 
     public List<String> getRoles() {
@@ -77,8 +80,11 @@ public class UserDTO implements Serializable{
     }
 
 
-    public void setPassword(String password){
-        this.password = password;
+    public void setPassword(String password) throws DTOException {
+        if (password.length() >= 6  && password.length() <= 50)
+            this.password = password;
+        else
+            throw new DTOException("Password er ikke i den talladte længde");
 
     }
     public String getPassword(){
