@@ -4,6 +4,7 @@ import dal.IUserDAO;
 import dal.UserDAO_DB;
 import dto.UserDTO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserFunk implements IUserFunk {
@@ -17,7 +18,7 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException {
+    public UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException, SQLException {
         UserDTO user = new UserDTO();
         user.setUserId(userID);
         user.setUserName(userName);
@@ -34,7 +35,7 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public void storeUser(UserDTO user) throws IUserDAO.DALException {
+    public void storeUser(UserDTO user) throws IUserDAO.DALException, SQLException, ClassNotFoundException {
         this.data.createUser(user);
     }
 
@@ -50,7 +51,7 @@ public class UserFunk implements IUserFunk {
     }
 
     @Override
-    public UserDTO getUser(int userID) throws IUserDAO.DALException {
+    public UserDTO getUser(int userID) throws IUserDAO.DALException, SQLException {
         UserDTO user = data.getUser(userID);
 
         return user;
