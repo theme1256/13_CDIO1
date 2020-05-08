@@ -39,6 +39,7 @@ public class UserService {
                 funk.addRole(user,"Produktionsleder");
             }
             funk.storeUser(user);
+
             return Response.ok().build();
         } catch (UserDTO.DTOException | SQLException | IUserDAO.DALException | ClassNotFoundException e) {
             e.printStackTrace();

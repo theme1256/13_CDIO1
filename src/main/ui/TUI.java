@@ -102,7 +102,7 @@ public class TUI implements UI {
             UserDTO user = this.funk.createUser(id, username, ini, cpr);
 
             this.out("Tildeling af roller", CC.GREEN);
-            for (String test : new String[]{"Admin", "Pharmacist", "Foreman", "Operator"}) {
+            for (String test : new String[]{"Admin", "Pharmacist", "Laborant", "Produktionsleder"}) {
                 this.out("Skal brugeren være " + test.toLowerCase() + "? [y/N]");
                 if (this.input.nextLine().toLowerCase().contains("y")) {
                     this.funk.addRole(user, test);
