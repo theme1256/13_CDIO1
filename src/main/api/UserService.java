@@ -1,6 +1,7 @@
 package api;
 
 
+import dal.IUserDAO;
 import dal.UserDAO_DB;
 import dal.UserDAO_File;
 import dto.UserDTO;
@@ -22,12 +23,24 @@ public class UserService {
     @Path("create")
     @POST
     public Response addUser (UserSubmit submit) {
-        System.out.println(submit.getCpr());
-        System.out.println(submit.isPharmaceut());
+
         try {
-            funk.createUser(submit.getUserID(), submit.getUsername(), submit.getIni(), submit.getCpr());
+            UserDTO user = funk.createUser(submit.getUserID(), submit.getUsername(), submit.getIni(), submit.getCpr());
+            if(submit.isPharmaceut()){
+                funk.addRole(user,"Pharmacist");
+            }
+            if(submit.isAdmin()){
+                funk.addRole(user,"Admin");
+            }
+            if(submit.isLaborant()){
+                funk.addRole(user, "Laborant");
+            }
+            if(submit.isProduktionsleder()){
+                funk.addRole(user,"Produktionsleder");
+            }
+            funk.storeUser(user);
             return Response.ok().build();
-        } catch (UserDTO.DTOException | SQLException e) {
+        } catch (UserDTO.DTOException | SQLException | IUserDAO.DALException | ClassNotFoundException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

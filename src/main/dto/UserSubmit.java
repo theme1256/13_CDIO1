@@ -6,6 +6,9 @@ public class UserSubmit {
     private int userID;
     private String cpr;
     private boolean pharmaceut;
+    private boolean admin;
+    private boolean laborant;
+    private boolean produktionsleder;
 
     public UserSubmit(){}
 
@@ -28,6 +31,15 @@ public class UserSubmit {
     public void setPharmaceut(boolean pharmaceut) {
         this.pharmaceut = pharmaceut;
     }
+    public void setAdmin(boolean admin){
+        this.admin = admin;
+    }
+    public void setProduktionsleder(boolean produktionsleder){
+        this.produktionsleder = produktionsleder;
+    }
+    public void setLaborant(boolean laborant){
+        this.laborant = laborant;
+    }
 
     public String getCpr() {
         return cpr;
@@ -47,5 +59,14 @@ public class UserSubmit {
 
     public boolean isPharmaceut() {
         return pharmaceut;
+    }
+    public boolean isAdmin() {
+        return admin;
+    }
+    public boolean isLaborant(){
+        return laborant;
+    }
+    public boolean isProduktionsleder(){
+        return produktionsleder;
     }
 }

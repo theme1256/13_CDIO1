@@ -19,8 +19,8 @@ public class UserDTO implements Serializable{
         this.roles = new ArrayList<String>();
         this.possible_roles.add("Admin");
         this.possible_roles.add("Pharmacist");
-        this.possible_roles.add("Foreman");
-        this.possible_roles.add("Operator");
+        this.possible_roles.add("Laborant");
+        this.possible_roles.add("Produktionsleder");
     }
 
     public int getUserId() {
