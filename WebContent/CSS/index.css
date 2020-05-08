@@ -1,0 +1,43 @@
+
+
+h1 {
+    color: tomato;
+    text-align: center;
+    background-color: dimgrey;
+
+    margin: auto;
+
+}
+p{color: white;}
+
+
+
+th{color: white;}
+td{color: black;}
+
+label{color: white;}
+#labelInput{color: dimgrey;}
+
+#pStor{
+    color: white;
+    font-size:19px;
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    padding: 5px;
+    background-color: dimgrey;
+}
+
+body{background-color: tomato;
+    background-image: url("../../Billeder/dtuLogo.jpg");
+    background-position: 1400px 200px;
+    background-size: 20%;
+    background-repeat: no-repeat;
+
+}
+
+
+
+

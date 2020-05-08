@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bruger Administration</title>
+
+    <link rel="stylesheet" type="text/css" href="../CSS/index.css">
+    <script type="text/javascript" src="../JavaScript/jquery-3.5.0.js"></script>
+    <script type="text/javascript" src="../JavaScript/javaScript.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("this").parents("td").remove();
+            });
+        });
+    </script>
+
+
+
+</head>
+<body>
+
+<h1>Bruger Administration</h1>
+
+<p id="pStor">Velkommen til bruger administrationen, her kan du oprette en ny bruger og se listen over nuværende brugere.</p>
+
+<form action="opretBruger.html" method="post" >
+    <input type="submit" value="Opret Bruger" />
+</form> <br><br><br><br><br><br>
+
+<table id="tabel1" style="width:50%">
+    <tr>
+        <th>BrugerID</th>
+        <th>Brugernavn</th>
+        <th>Rolle</th>
+        <th>Fornavn</th>
+        <th>Adresse</th>
+        <th>Postnummer</th>
+        <th>By</th>
+        <th>Slet Bruger?</th>
+
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>s195465</td>
+        <td>Admin</td>
+        <td>Christian</td>
+        <td>Slippen 4</td>
+        <td>2800</td>
+        <td>Lyngby</td>
+        <td><form>
+            <div align="middle">
+                <button>Slet Bruger?</button>
+            </div>
+        </form></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Henrik17</td>
+        <td>Bruger</td>
+        <td>Henrik</td>
+        <td>Boagervej 17</td>
+        <td>2791</td>
+        <td>Dragør</td>
+        <td><form>
+        <div align="middle">
+            <button>Slet Bruger?</button>
+        </div>
+    </form></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>SophieGirl76</td>
+        <td>Bruger</td>
+        <td>Sofie</td>
+        <td>Østrebrogade 304</td>
+        <td>1820</td>
+        <td>København</td>
+        <td><form>
+            <div align="middle">
+                <button>Slet Bruger?</button>
+            </div>
+        </form></td>
+    </tr>
+</table> <br>
+
+<button id="hide">Hide</button>
+<button id="show">Show</button>
+
+
+<form action="login.html" method="get" >
+    <div align="middle">
+        <input type="submit" value="Log Ud" />
+    </div>
+</form>
+
+
+</body>
+</html>

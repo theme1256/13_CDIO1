@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret Bruger</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/index.css">
+    <script type="text/javascript" src="../JavaScript/jquery-3.5.0.js"></script>
+    <script type="text/javascript" src="../JavaScript/javaScript.js"></script>
+
+</head>
+<body>
+
+<h1>Opret Bruger</h1>
+
+<p> Udfyld venligst nedstående formular for at oprette bruger</p>
+
+    <form method="post" action="src/main/api/userAdmin" >
+
+        <label for="userID">Bruger ID:</label>
+        <input type="number" id="userID" name="userID"><br><br>
+
+        <label for="username">Brugernavn:</label>
+        <input type="text" id="username" name="username"> <br><br>
+
+        <label for="ini">Initialer:</label>
+        <input type ="text" id="ini" name="ini"><br><br>
+
+        <label for="cpr">CPR-Nummer:</label>
+        <input type="number" id="cpr" name="cpr"> <br><br>
+
+        <label>Rolle</label>
+        <input type="checkbox" id="admin" value="admin">
+        <label for="admin" style="color: black">Admin</label>
+
+        <input type="checkbox" id="pharmaceut" value="pharmaceut">
+        <label for="pharmaceut" style="color: black">Pharmaceut</label>
+
+        <input type="checkbox" id="produktionsleder" value="produktionsleder">
+        <label for="produktionsleder" style="color: black">Produktionsleder</label>
+
+        <input type="checkbox" id="laborant" value="laborant">
+        <label for="laborant" style="color: black">Laborant</label> <br><br>
+
+        <input type="submit" value="Opret Bruger">
+    </form>
+
+
+</body>
+</html>

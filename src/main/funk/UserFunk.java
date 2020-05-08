@@ -17,6 +17,7 @@ public class UserFunk implements IUserFunk {
       this.psController = new PasswordController();
     }
 
+
     @Override
     public UserDTO createUser(int userID, String userName, String ini, String cpr) throws UserDTO.DTOException, SQLException {
         UserDTO user = new UserDTO();
