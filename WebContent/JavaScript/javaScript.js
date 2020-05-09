@@ -40,6 +40,27 @@ $("#form2").submit(function(event) {
     });
 });
 
+$("#formDelete").submit(function(event) {
+    event.preventDefault();
+    if (confirm('Are you sure you want to delete user?')) {
+        $.ajax({
+            url: "../api/userAdmin/delete",
+            data: JSON.stringify($("#formDelete").serializeJSON()),
+            contentType: "application/JSON",
+            method: "POST",
+            success: function (data) {
+                alert("Bruger slettet succesfuldt!");
+                switchPage("brugerAdmin.html");
+            },
+            error: function (XHR) {
+                console.log(XHR);
+                alert("Fejl:" + XHR.responseText);
+            },
+        });
+    }
+});
+
+
 window.onload = function () {
 
    /* $(document).ready(function () {

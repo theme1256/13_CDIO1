@@ -76,9 +76,25 @@ public class UserService {
 
         } catch (SQLException | UserDTO.DTOException | IUserDAO.DALException | ClassNotFoundException e) {
             e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        return Response.status(Response.Status.NOT_IMPLEMENTED).build();
+
     }
 
+    @Path("delete")
+    @POST
+    public  Response deleteUser(UserSubmit submit){
+        try {
+            int userID = submit.getUserID();
+
+            funk.deleteUser(userID);
+            return Response.ok().build();
+        } catch (IUserDAO.DALException | SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+
+
+    }
 
 }
