@@ -4,11 +4,11 @@ function switchPage(page) {
     
 }
 
-$("#form1").submit(function(event) {
+$("#createUser").submit(function(event) {
     event.preventDefault();
     $.ajax({
         url: "../api/userAdmin/create",
-        data: JSON.stringify($("#form1").serializeJSON()),
+        data: JSON.stringify($("#createUser").serializeJSON()),
         contentType: "application/JSON",
         method: "POST",
         success: function (data) {
@@ -22,11 +22,11 @@ $("#form1").submit(function(event) {
     });
 });
 
-$("#form2").submit(function(event) {
+$("#editUser").submit(function(event) {
     event.preventDefault();
     $.ajax({
         url: "../api/userAdmin/update",
-        data: JSON.stringify($("#form2").serializeJSON()),
+        data: JSON.stringify($("#editUser").serializeJSON()),
         contentType: "application/JSON",
         method: "POST",
         success: function (data) {
@@ -40,12 +40,12 @@ $("#form2").submit(function(event) {
     });
 });
 
-$("#formDelete").submit(function(event) {
+$("#deleteUser").submit(function(event) {
     event.preventDefault();
     if (confirm('Are you sure you want to delete user?')) {
         $.ajax({
             url: "../api/userAdmin/delete",
-            data: JSON.stringify($("#formDelete").serializeJSON()),
+            data: JSON.stringify($("#deleteUser").serializeJSON()),
             contentType: "application/JSON",
             method: "POST",
             success: function (data) {
