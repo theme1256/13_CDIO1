@@ -19,7 +19,7 @@ $("#form1").submit(function(event) {
             alert("Fejl:" + XHR.responseText);
         },
     });
-})
+});
 window.onload = function () {
 
    /* $(document).ready(function () {

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserService {
-    private IUserFunk funk = new UserFunk(new UserDAO_File());
+    private IUserFunk funk = new UserFunk(new UserDAO_File()    );
 
     @Path("create")
     @POST
