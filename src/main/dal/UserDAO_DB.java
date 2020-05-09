@@ -15,7 +15,7 @@ public class UserDAO_DB implements IUserDAO {
 
     //Do not edit these variables
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://" + this.host + ":" + this.port + this.database + "?characterEncoding=latin1";
+    private String url = "jdbc:mysql://" + this.host + ":" + this.port + this.database + "?characterEncoding=latin1&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public UserDAO_DB() {
     }
