@@ -12,6 +12,7 @@ $("#form1").submit(function(event) {
         contentType: "application/JSON",
         method: "POST",
         success: function (data) {
+            alert("Bruger oprettet succesfuldt!");
             switchPage("brugerAdmin.html");
         },
         error: function(XHR) {
@@ -20,6 +21,25 @@ $("#form1").submit(function(event) {
         },
     });
 });
+
+$("#form2").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+        url: "../api/userAdmin/update",
+        data: JSON.stringify($("#form2").serializeJSON()),
+        contentType: "application/JSON",
+        method: "POST",
+        success: function (data) {
+            alert("Bruger opdateret succesfuldt!");
+            switchPage("brugerAdmin.html");
+        },
+        error: function(XHR) {
+            console.log(XHR);
+            alert("Fejl:" + XHR.responseText);
+        },
+    });
+});
+
 window.onload = function () {
 
    /* $(document).ready(function () {
