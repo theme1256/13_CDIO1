@@ -12,6 +12,7 @@
             $("button").click(function(){
                 $("this").parents("td").remove();
             });
+            loadUsers();
         });
     </script>
 
@@ -29,63 +30,22 @@
 <button onclick="switchPage('sletBruger.html');">Slet bruger</button><br><br><br><br><br><br>
 
 <table id="tabel1" style="width:50%">
-    <tr>
-        <th>BrugerID</th>
-        <th>Brugernavn</th>
-        <th>Rolle</th>
-        <th>Fornavn</th>
-        <th>Adresse</th>
-        <th>Postnummer</th>
-        <th>By</th>
-        <th>Slet Bruger?</th>
-
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>s195465</td>
-        <td>Admin</td>
-        <td>Christian</td>
-        <td>Slippen 4</td>
-        <td>2800</td>
-        <td>Lyngby</td>
-        <td>
-            <div align="middle">
-                <button>Slet Bruger?</button>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Henrik17</td>
-        <td>Bruger</td>
-        <td>Henrik</td>
-        <td>Boagervej 17</td>
-        <td>2791</td>
-        <td>Dragør</td>
-        <td>
-        <div align="middle">
-            <button onclick="">Slet Bruger?</button>
-        </div>
-        </td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>SophieGirl76</td>
-        <td>Bruger</td>
-        <td>Sofie</td>
-        <td>Østrebrogade 304</td>
-        <td>1820</td>
-        <td>København</td>
-        <td>
-            <div align="middle">
-                <button>Slet Bruger?</button>
-            </div>
-        </td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Bruger ID</th>
+            <th>Brugernavn</th>
+            <th>CPR</th>
+            <th>Initialer</th>
+            <th>Kode</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
 </table> <br>
 
 <button id="hide">Hide</button>
 <button id="show">Show</button>
+<button onclick="loadUsers()">Reload liste</button>
 
 
 <button onclick="switchPage('login.html');">Log ud</button>

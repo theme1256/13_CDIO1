@@ -94,7 +94,26 @@ public class UserService {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
 
-
     }
 
+    @Path("getUser")
+    @GET
+    public Response getUser(@QueryParam("userID") int ID){
+        try {
+            UserDTO user = funk.getUser(ID);
+
+            return Response.status(Response.Status.OK).entity(user).build();
+
+        } catch (IUserDAO.DALException | SQLException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @Path("getUsers")
+    @GET
+    public Response getUsers() {
+        return Response.status(Response.Status.OK).entity(funk.getUsers()).build();
+
+    }
 }
