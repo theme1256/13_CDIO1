@@ -100,8 +100,8 @@ public class UserService {
     @GET
     public Response getUser(@QueryParam("userID") int ID){
         try {
-            UserDTO user = funk.getUser(ID);
 
+            UserDTO user = funk.getUser(ID);
             return Response.status(Response.Status.OK).entity(user).build();
 
         } catch (IUserDAO.DALException | SQLException e) {
